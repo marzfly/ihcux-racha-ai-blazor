@@ -1,0 +1,15 @@
+@using RachaAi.Models
+
+<div class="card bg-white mb-4 col-4">
+    <div class="card-body">
+        <h4 class="font-weight-normal text-black">@Dados.Categoria</h4>
+        <h2 class="font-weight-bold text-black">@Dados.Nome</h2>
+        <h2 class="font-weight-bold @(Dados.NoVermelho ? "text-danger" : "text-success")">R$@Dados.ValorPendente</h2>
+    </div>
+</div>
+
+@code {
+    [Parameter] public Grupo Dados { get; set; } = new();
+    [Parameter] public Perfil Info { get; set; } = new Perfil();
+    private string CorTexto(bool noVermelho) => noVermelho ? "text-red" : "text-green";
+}

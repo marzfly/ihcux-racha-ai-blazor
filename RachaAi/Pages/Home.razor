@@ -1,0 +1,76 @@
+﻿@page "/dashboard"
+@using RachaAi.Models
+@using RachaAi.Shared
+
+<PageTitle>RachaAí</PageTitle>
+
+<h1 class="font-weight-bold">RachaAí - Controle e Compartilhamento de Despesas</h1>
+
+<h2 class="fw-bold">Olá, @InfoFixa.NomeUsuario! Bem-vindo(a) de volta</h2>
+<div class="container py-4">
+    <div class="row">
+        <div class="card bg-primary text-white mb-4 col-3">
+            <div class="card-body">
+                <div class="text-white">
+                    <h4 class="font-weight-normal">Saldo: </h4>
+                    <h2 class="font-weight-bold">R$@InfoFixa.SaldoUsuario</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="card bg-white text-green mb-4 col-3">
+            <div class="card-body">
+                <div class="text-green">
+                    <h4 class="font-weight-normal">A Receber: </h4>
+                    <h2 class="font-weight-bold">R$@InfoFixa.AReceber</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="card bg-white text-red mb-4 col-3">
+            <div class="card-body">
+                <div class="text-red">
+                    <h4 class="font-weight-normal">A Pagar: </h4>
+                    <h2 class="font-weight-bold">R$@InfoFixa.APagar</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button class="btn btn-primary">Cadastrar Grupos</button>
+
+@foreach(var item in MeusGrupos){
+    <GrupoCard Dados="item"/>
+}
+
+@code{
+    public List<Grupo> MeusGrupos = new(){
+        new Grupo{
+            Nome = "Confraternização de Natal",
+            Categoria = "Família e Lazer",
+            ValorPendente = 67.50M,
+            NoVermelho = false
+        },
+
+        new Grupo{
+            Nome = "Compras do Mês",
+            Categoria = "Casa",
+            ValorPendente = 101.67M,
+            NoVermelho = true
+        }
+        };
+    private string CorTexto(Grupo grupo){
+        if(grupo.NoVermelho == true){
+            return "text-red";
+        } else {
+            return "text-green";
+        }
+    }
+    private Perfil InfoFixa = new Perfil{
+        NomeUsuario = "Mariana Duarte",
+        SaldoUsuario = 589.80M,
+        AReceber = 124.50M,
+        APagar = 101.67M
+    };
+}
